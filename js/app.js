@@ -12,7 +12,7 @@ function card(s){return `<article class=card ${gc(s)}><h2><i>${s.ic}</i>${s.t}</
 function menu(cur){let h="",g="";S.forEach(s=>{if(s.g!=g){g=s.g;h+=`<h4 style="--gc:var(${GR[g].c})">${GR[g].i} ${g}</h4>`}h+=`<a href="#${s.id}" ${gc(s)} class="${s.id==cur?"on":""}">${s.ic} ${s.t}</a>`});nav.innerHTML=h}
 function home(){menu("");const tk=["q3","q4","q2","q1","q5","c2"].map(id=>S.find(s=>s.id==id));
  m.innerHTML=`<section class=hero><h1>🔬 ZEN 3.4 影像處理與轉檔操作</h1><p>選擇你要做的事，或用上方搜尋框找關鍵字。點步驟可標記完成 ✓</p></section><div class=tasks>${tk.map(s=>`<button class=task ${gc(s)} data-go="${s.id}"><i>${s.ic}</i><b>${s.t}</b><span>${s.d}</span></button>`).join("")}</div>`}
-function view(id){const i=S.findIndex(s=>s.id==id);if(id=="admin")return stats();if(i<0)return home();menu(id);
+function view(id){const i=S.findIndex(s=>s.id==id);if(i<0)return home();menu(id);
  const p=S[i-1],n=S[i+1];m.innerHTML=card(S[i])+`<div class=nv>${p?`<button class=btn data-go="${p.id}">← ${p.t}</button>`:"<span></span>"}${n?`<button class=btn data-go="${n.id}">${n.t} →</button>`:""}</div>`;scrollTo(0,0);log("view",id)}
 function search(v){v=v.trim().toLowerCase();if(!v)return route();menu("");const r=S.filter(s=>(s.t+s.d+s.g+JSON.stringify(s.st)+JSON.stringify(s.nt)).toLowerCase().includes(v));m.innerHTML=r.length?r.map(card).join(""):"<div class=card>找不到符合的內容，請換個關鍵字。</div>"}
 function route(){const h=location.hash.slice(1);$("#q").value="";h?view(h):home()}
@@ -26,17 +26,9 @@ document.addEventListener("click",e=>{const g=e.target.closest("[data-go]");if(g
 /* ---- 訪客紀錄 → Google Sheet（Apps Script） ---- */
 let sid;try{sid=sessionStorage.getItem("sid")||Math.random().toString(36).slice(2)+Date.now().toString(36);sessionStorage.setItem("sid",sid)}catch(e){sid=Math.random().toString(36).slice(2)}
 const seen={};
-function log(ev,p){if(!GAS||location.hash=="#admin")return;const k=ev+p;if(seen[k])return;seen[k]=1;
+function log(ev,p){if(!GAS)return;const k=ev+p;if(seen[k])return;seen[k]=1;
  try{fetch(GAS,{method:"POST",mode:"no-cors",keepalive:true,headers:{"Content-Type":"text/plain"},body:JSON.stringify({sid,ev,p:p||"",dev:innerWidth<800?"mobile":"desktop",lang:navigator.language,scr:screen.width+"x"+screen.height,ref:document.referrer?new URL(document.referrer).hostname:"direct"})}).catch(()=>{})}catch(e){}}
-async function stats(){menu("");
- if(!GAS){m.innerHTML="<div class=card>尚未設定 GAS_URL（js/config.js）。</div>";return}
- let key=sessionStorage.getItem("akey")||prompt("請輸入管理者金鑰（ADMIN_KEY）");if(!key){m.innerHTML="<div class=card>已取消。</div>";return}
- m.innerHTML="<div class=card>載入統計中…</div>";
- try{const r=await(await fetch(GAS+"?action=stats&key="+encodeURIComponent(key))).json();
-  if(!r.ok){sessionStorage.removeItem("akey");m.innerHTML="<div class=card>❌ "+(r.error||"金鑰錯誤")+"</div>";return}
-  sessionStorage.setItem("akey",key);const mx=Math.max(1,...r.days.map(x=>x.n),...Object.values(r.pages));
-  const row=(a,n)=>`<tr><td>${a}</td><td><span class=bar style="width:${n/mx*60}%"></span> ${n}</td></tr>`;
-  m.innerHTML=`<article class=card style="--gc:var(--c1)"><h2><i>📊</i>訪客統計</h2><div class=g>資料來源：Google Sheet「visits」工作表</div><div class=kpi><div><b>${r.total}</b>累計瀏覽</div><div><b>${r.sessions}</b>不重複訪客</div><div><b>${r.mobile}</b>手機</div><div><b>${r.desktop}</b>桌機</div></div><h4>📅 近 14 日不重複訪客</h4><table>${r.days.map(x=>row(x.d,x.n)).join("")}</table><h4>🔥 章節瀏覽排行</h4><table>${Object.entries(r.pages).sort((a,b)=>b[1]-a[1]).map(([k,v])=>row(((S.find(s=>s.id==k)||{}).t)||k,v)).join("")||"<tr><td>尚無資料</td></tr>"}</table></article>`}
- catch(e){m.innerHTML="<div class=card>無法讀取統計，請確認 GAS 已部署為「任何人」可存取。</div>"}}
-route();log("open","");
+async function showCount(){const el=$("#cnt");if(!GAS||!el)return;
+ try{const r=await(await fetch(GAS+"?action=count")).json();if(r.ok)el.textContent="👥 累計訪客 "+r.total+" 人次"}catch(e){}}
+route();log("open","");showCount();
 })();
