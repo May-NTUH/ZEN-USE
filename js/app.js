@@ -5,11 +5,11 @@ const GR={"快速上手":{c:"--c1",i:"🚀"},"欄位介紹":{c:"--c2",i:"🧭"},
 const $=s=>document.querySelector(s),m=$("#m"),nav=$("#nav");
 const gc=s=>`style="--gc:var(${GR[s.g].c})"`;
 const sub=a=>a?"<ul class=sub>"+a.map(y=>"<li>"+y+"</li>").join("")+"</ul>":"";
-const steps=a=>"<ol>"+a.map(x=>"<li>"+x[0]+sub(x[1])+"</li>").join("")+"</ol>";
+const steps=a=>"<ol>"+a.map(x=>"<li>"+x[0]+sub(x[1])+(x[2]?`<img class=si loading=lazy src="${img(x[2])}" alt="">`:"")+"</li>").join("")+"</ol>";
 const notes=a=>a.flat().map(n=>n[0]=="!"?"<div class='note must'>⚠️ "+n.slice(1)+"</div>":"<div class=note>💡 "+n+"</div>").join("");
-const img=n=>`images/slide-${String(n).padStart(2,"0")}.jpg`;
-function card(s){return `<article class=card ${gc(s)}><h2><i>${s.ic}</i>${s.t}</h2><div class=g><span class=tag>${s.g}</span>${s.d}</div>${steps(s.st)}${notes(s.nt)}<div class=imgs>${s.im.map(n=>`<img loading=lazy src="${img(n)}" alt="${s.t} 圖示">`).join("")}</div></article>`}
-function menu(cur){let h="",g="";S.forEach(s=>{if(s.g!=g){g=s.g;h+=`<h4 style="--gc:var(${GR[g].c})">${GR[g].i} ${g}</h4>`}h+=`<a href="#${s.id}" ${gc(s)} class="${s.id==cur?"on":""}">${s.ic} ${s.t}</a>`});nav.innerHTML=h}
+const img=n=>typeof n=="number"?`images/slide-${String(n).padStart(2,"0")}.jpg`:"images/"+n;
+function card(s){return `<article class=card ${gc(s)}><h2><i>${s.ic}</i>${s.t}</h2><div class=g><span class=tag>${s.g}</span>${s.d}</div>${steps(s.st)}${notes(s.nt)}${s.im.length?`<div class=imgs>${s.im.map(n=>`<img loading=lazy src="${img(n)}" alt="${s.t} 圖示">`).join("")}</div>`:""}</article>`}
+function menu(cur){let h="",g="";S.forEach(s=>{if(s.g!=g){g=s.g;h+=`<h4 style="--gc:var(${GR[g].c})">${GR[g].i} ${g}</h4>`}h+=`<a href="#${s.id}" ${gc(s)} class="${s.id==cur?"on":""}"><i class=dot></i>${s.t}</a>`});nav.innerHTML=h}
 function home(){menu("");const tk=["q3","q4","q2","q1","q5","c2"].map(id=>S.find(s=>s.id==id));
  m.innerHTML=`<section class=hero><h1>🔬 ZEN 3.4 影像處理與轉檔操作</h1><p>選擇你要做的事，或用上方搜尋框找關鍵字。點步驟可標記完成 ✓</p></section><div class=tasks>${tk.map(s=>`<button class=task ${gc(s)} data-go="${s.id}"><i>${s.ic}</i><b>${s.t}</b><span>${s.d}</span></button>`).join("")}</div>`}
 function view(id){const i=S.findIndex(s=>s.id==id);if(i<0)return home();menu(id);
@@ -20,8 +20,8 @@ addEventListener("hashchange",route);
 $("#q").addEventListener("input",e=>search(e.target.value));
 $("#logo").onclick=()=>{location.hash="";route()};
 document.addEventListener("click",e=>{const g=e.target.closest("[data-go]");if(g)location.hash=g.dataset.go;
- const l=e.target.closest("ol>li");if(l&&!e.target.closest(".link"))l.classList.toggle("done");
- if(e.target.matches(".imgs img")){$("#lbi").src=e.target.src;$("#lb").style.display="flex"}if(e.target.closest("#lb"))$("#lb").style.display="none"});
+ const l=e.target.closest("ol>li");if(l&&!e.target.closest(".link")&&!e.target.matches("img"))l.classList.toggle("done");
+ if(e.target.matches(".imgs img,.si")){$("#lbi").src=e.target.src;$("#lb").style.display="flex"}if(e.target.closest("#lb"))$("#lb").style.display="none"});
 
 /* ---- 訪客紀錄 → Google Sheet（Apps Script） ---- */
 let sid;try{sid=sessionStorage.getItem("sid")||Math.random().toString(36).slice(2)+Date.now().toString(36);sessionStorage.setItem("sid",sid)}catch(e){sid=Math.random().toString(36).slice(2)}

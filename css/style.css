@@ -9,7 +9,9 @@ header input{flex:1;min-width:0;padding:9px 14px;border:0;border-radius:999px;fo
 nav{width:285px;flex:none;padding:18px 14px;position:sticky;top:64px;align-self:flex-start;max-height:calc(100vh - 70px);overflow:auto}
 nav h4{margin:18px 0 6px 6px;font-size:13px;color:var(--gc);letter-spacing:.06em}
 nav a{display:flex;gap:8px;align-items:center;padding:7px 10px;border-radius:10px;color:var(--tx);text-decoration:none;font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-nav a:hover{background:var(--acbg)}nav a.on{background:var(--gc);color:var(--on);font-weight:600}
+nav a{gap:10px}nav a:hover{background:var(--acbg)}nav a.on{background:color-mix(in srgb,var(--gc) 16%,transparent);color:var(--gc);font-weight:600}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--gc);opacity:.45;flex:none;transition:.15s}nav a:hover .dot,nav a.on .dot{opacity:1;transform:scale(1.35)}
+.si{display:block;width:100%;max-width:640px;margin-top:10px;border:1px solid var(--bd);border-radius:12px;cursor:zoom-in}
 main{flex:1;min-width:0;padding:22px 18px 60px}
 .hero{background:#e6ddd0;border-radius:18px;padding:26px;box-shadow:var(--sh);color:#4a4540}
 @media(prefers-color-scheme:dark){.hero{background:#38332d;color:#e9e2d9}}
