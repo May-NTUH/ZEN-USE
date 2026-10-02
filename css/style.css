@@ -28,7 +28,7 @@ main{flex:1;min-width:0;padding:22px 18px 60px}
 ol{padding:0;list-style:none;counter-reset:s}
 ol>li{counter-increment:s;position:relative;padding:8px 8px 8px 46px;border-radius:12px;cursor:pointer}
 ol>li:hover{background:var(--acbg)}
-ol>li::before{content:counter(s);position:absolute;left:8px;top:9px;width:28px;height:28px;border-radius:50%;background:var(--gc);color:var(--on);text-align:center;line-height:28px;font-size:14px;font-weight:700}
+ol>li::before{content:attr(data-n);position:absolute;left:8px;top:9px;width:28px;height:28px;border-radius:50%;background:var(--gc);color:var(--on);text-align:center;line-height:28px;font-size:14px;font-weight:700}
 ol>li.done{opacity:.55}ol>li.done::before{content:"✓"}
 ul.sub{margin:4px 0 0;padding-left:18px;color:var(--mut);font-size:15px}
 .note{background:var(--acbg);border-radius:12px;padding:10px 14px;margin:10px 0;font-size:15px}
@@ -61,3 +61,7 @@ ol>li.row{display:block;container-type:inline-size}
 @container (max-width:676px){.rw{grid-template-columns:1fr}.rw .si{max-width:520px;margin-top:10px}}
 
 .si.sm{max-width:min(100%,380px);margin-top:8px}
+ol>li.grp{counter-increment:none;padding-left:8px}ol>li.grp::before{content:none}
+.st{counter-increment:s;position:relative;padding:8px 8px 8px 38px}
+.st::before{content:attr(data-n);position:absolute;left:0;top:9px;width:28px;height:28px;border-radius:50%;background:var(--gc);color:var(--on);text-align:center;line-height:28px;font-size:14px;font-weight:700}
+ol>li.grp.done{opacity:.55}
