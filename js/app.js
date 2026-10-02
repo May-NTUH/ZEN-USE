@@ -22,7 +22,7 @@ function menu(cur){let h="",g="";S.forEach(s=>{if(s.g!=g){g=s.g;h+=`<h4 style="-
 function home(){menu("");const tk=["q3","q4","q2","q1","q5","c2"].map(id=>S.find(s=>s.id==id));
  m.innerHTML=`<section class=hero><h1>🔬 ZEN 3.4 影像處理與轉檔操作</h1><p>選擇你要做的事，或用上方搜尋框找關鍵字。點步驟可標記完成 ✓</p></section><div class=tasks>${tk.map(s=>`<button class=task ${gc(s)} data-go="${s.id}"><i>${s.ic}</i><b>${s.t}</b><span>${s.d}</span></button>`).join("")}</div>`}
 function view(id){const i=S.findIndex(s=>s.id==id);if(i<0)return home();menu(id);
- const p=S[i-1],n=S[i+1];m.innerHTML=card(S[i])+`<div class=nv>${p?`<button class=btn data-go="${p.id}">← ${p.t}</button>`:"<span></span>"}${n?`<button class=btn data-go="${n.id}">${n.t} →</button>`:""}</div>`;scrollTo(0,0);log("view",id)}
+ m.innerHTML=card(S[i]);scrollTo(0,0);log("view",id)}
 function search(v){v=v.trim().toLowerCase();if(!v)return route();menu("");const r=S.filter(s=>(s.t+s.d+s.g+JSON.stringify(s.st)+JSON.stringify(s.nt)).toLowerCase().includes(v));m.innerHTML=r.length?r.map(card).join(""):"<div class=card>找不到符合的內容，請換個關鍵字。</div>"}
 function route(){const h=location.hash.slice(1);$("#q").value="";h?view(h):home()}
 addEventListener("hashchange",route);
