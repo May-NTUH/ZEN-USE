@@ -52,4 +52,9 @@ footer{text-align:center;color:var(--mut);font-size:13px;padding:24px}
 .split{display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:26px;align-items:start}
 .split .imgs{position:sticky;top:84px;margin-top:0;background:var(--acbg);padding:10px;border-radius:14px}
 .hint{text-align:center;font-size:12px;color:var(--mut)}
-@media(max-width:900px){.split{grid-template-columns:1fr}.split .imgs{position:static;margin-top:12px}}
+/* 依「卡片實際寬度」換排版：文字欄寬不足約 340px 時，圖片移到下方 */
+.card{container-type:inline-size}
+ol>li.row{container-type:inline-size}
+.rw{display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:26px;align-items:start}
+.rw .si{width:100%;max-width:none;margin:0;background:var(--acbg);padding:10px;border-radius:14px}
+@container (max-width:790px){.split{grid-template-columns:1fr}.split .imgs{position:static;margin-top:12px}.rw{grid-template-columns:1fr}.rw .si{max-width:520px;margin-top:10px}}
