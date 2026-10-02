@@ -30,13 +30,13 @@ window.ZEN_SECTIONS=[
  nt:[["!若看不到完整參數，請先勾選 Parameters 右側的 <b>Show All</b>。"],["各模式的參數不同，細節見 <span class=link data-go='p1'>Image Export 參數設定</span>、<span class=link data-go='p3'>Movie Export 參數設定</span>。"],["常用模式：<br>· Export/Import → Image Export：匯出單一/多重螢光影像<br>· Export/Import → Movie Export：製作影片<br>· Utilities → Split Scenes (Write files)：拆解多位點影像（常用於曠時攝影）"]]},
 {id:"c2",ic:"📚",g:"轉檔步驟",t:"批次照片轉檔 Batch",d:"一次處理多個檔案並套用相同參數",im:[16],
  st:[["點選 <b>Batch</b>。"],["新增批次檔案：點 [+Add…] 或直接拖曳檔案進欄位。"],["點其中一個檔案，選擇 Method 並設定 Parameters。"],["設定完成後再點該檔案，按 <b>Copy Parameters</b>。"],["選取其他所有檔案，按 <b>Paste Parameters</b> 套用參數。"],["全選所有檔案，確認儲存路徑：",["預設勾選＝存於原始資料夾","取消勾選並點 […] 可統一更改路徑"]],["點擊 <b>Apply</b> 進行批次轉檔。"]],nt:[]},
-{id:"p1",ic:"🖼️",g:"參數設定",t:"Image Export 參數",d:"Export/Import → Image Export",im:[18,19],
- st:[["檔案格式與輸出品質。"],["匯出原始單色影像。"],["匯出套色/調整/標示之影像（勾選匯出單一或多重螢光疊圖）。"],["選擇匯出所有影像或指定部分（點 <b>Define Subset</b>）：",["Channels：點文字開/關螢光（不同組合需重複操作）","Region：Full 原始影像；Rectangle region 框選範圍","Tile：Export selected tiles 匯出原始散裝照片；Crop to selection 將拼圖重新分割（不分割則皆輸入 1）"]],["檔案輸出位置與名稱。"]],
- nt:[["請先勾選右上角 <b>Show All</b>。"]]},
-{id:"p2",ic:"🧩",g:"參數設定",t:"Split Scenes 參數",d:"Utilities → Split Scenes (Write files)",im:[20],
- st:[["更改檔案輸出位置。"],["勾選保留個別位置名稱（必勾）。"]],
- nt:[["請先勾選右上角 <b>Show All</b>。每個位點會拆成獨立 .czi 檔，方便匯出與後製。"]]},
-{id:"p3",ic:"🎬",g:"參數設定",t:"Movie Export 參數",d:"Export/Import → Movie Export",im:[21],
- st:[["檔案格式與輸出品質。"],["匯出套色/調整/標示之影像（單一或多重螢光疊圖）。"],["選擇影像呈現比例。"],["設定播放順位與速度（張數/秒）。"],["選擇匯出所有/指定部分（全部/個別螢光/位置/拼圖）。"],["檔案輸出位置與名稱。"]],
- nt:[["請先勾選右上角 <b>Show All</b>。"]]}
+{id:"p1",ic:"🖼️",g:"參數設定",t:"Image Export 參數",d:"Export/Import → Image Export（圖中編號對應步驟編號）",im:["ie-main.jpg"],
+ st:[["<b>檔案格式與品質</b>",["Filetype：輸出檔案格式（如 JPEG、TIFF）","Quality：輸出品質","Resize：影像縮放比例"]],["<b>Original data</b>：匯出原始單色影像（未套色、未調整）。"],["<b>Apply display curve and channel color</b>：匯出套色、調整亮度對比、含標示的影像。",["Burn in graphics：將比例尺等標示一併嵌入影像（Zoom 可設定縮放）","Merged channels image：匯出多重螢光疊圖","Individual channel images：匯出各螢光單張影像","Use channel names：檔名使用螢光通道名稱"]],["<b>選擇匯出範圍</b>",["Use full set of dimensions：匯出全部影像","Define subset：只匯出指定部分，選擇後會展開下方選項","Channels：點文字開/關螢光（不同組合需重複操作）","Region：Full＝原始影像；Rectangle region＝框選範圍","Tiles：Export selected tiles＝匯出原始散裝照片；Crop to selection and generate new tiles＝將拼圖重新分割（不分割則 Columns、Rows 皆輸入 1）"],"~ie-subset.jpg"],["<b>輸出位置與檔名</b>",["Export To：輸出資料夾（點 … 選擇）","Create folder：自動建立資料夾存放","Prefix：檔名前綴","Defaults：還原為預設值"]]],
+ nt:[["!請先勾選右上角 <b>Show All</b>，才會看到完整參數。"]]},
+{id:"p3",ic:"🎬",g:"參數設定",t:"Movie Export 參數",d:"Export/Import → Movie Export（圖中編號對應步驟編號）",im:["mv-main.jpg"],
+ st:[["<b>檔案格式與品質</b>",["Format：影片格式（如 AVI）","Size/Rate：影片尺寸與播放速率","Quality：輸出品質"]],["<b>匯出套色、調整、標示的影像</b>",["Burn in graphics：將比例尺等標示一併嵌入影片（Zoom 可設定縮放）","Merged channels image：多重螢光疊圖","Individual channel images：各螢光單張影像"]],["<b>Fitting</b>：選擇影像呈現比例。"],["<b>播放順位與速度</b>",["Sequence：Time Series＝依時間順序；Channels＝依螢光順序","Mapping：設定每張影像的播放幀數與速度（張數/秒）","Image count 顯示影像張數；Final movie length 顯示預估影片長度"]],["<b>選擇匯出範圍</b>",["Use full set of dimensions：匯出全部影像","Define subset：只匯出指定部分，選擇後會展開下方選項","Channels：選擇要匯出的螢光","Time：選擇時間點（如 Extract Single＝單一時間點）","Region：Full＝完整範圍"],"~mv-subset.jpg"],["<b>輸出位置與檔名</b>",["Export To：輸出資料夾（點 … 選擇）","Prefix：檔名前綴"]]],
+ nt:[["!請先勾選右上角 <b>Show All</b>，才會看到完整參數。"]]},
+{id:"p2",ic:"🧩",g:"參數設定",t:"Split Scenes 參數",d:"Utilities → Split Scenes (Write files)",im:["split.jpg"],
+ st:[["<b>Output Folder</b>：更改檔案輸出位置（點 … 選擇資料夾）。"],["<b>Include Scene Information in Generated File Name</b>：勾選，檔名才會保留個別位點名稱。"]],
+ nt:[["!第 2 步必勾，否則檔名只會顯示位點順序。","請先勾選右上角 <b>Show All</b>。每個位點會拆成獨立 .czi 檔，方便匯出與後製。","Overwrite existing files 為覆蓋同名檔案選項，一般維持不勾選。"]]}
 ];
