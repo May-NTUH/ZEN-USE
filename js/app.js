@@ -5,7 +5,16 @@ const GR={"快速上手":{c:"--c1",i:"🚀"},"欄位介紹":{c:"--c2",i:"🧭"},
 const $=s=>document.querySelector(s),m=$("#m"),nav=$("#nav");
 const gc=s=>`style="--gc:var(${GR[s.g].c})"`;
 const sub=a=>a?"<ul class=sub>"+a.map(y=>"<li>"+y+"</li>").join("")+"</ul>":"";
-const steps=a=>{let n=0;return "<ol>"+a.map(x=>{if(x[3])return "<li class='row grp'><div class=rw><div>"+x[3].map(g=>"<div class=st data-n="+(++n)+">"+g[0]+sub(g[1])+"</div>").join("")+`</div><img class=si loading=lazy src="${img(x[2])}" alt=""></div></li>`;const t=x[0]+sub(x[1]);if(!x[2])return "<li data-n="+(++n)+">"+t+"</li>";const inl=x[2][0]=="~",f=inl?x[2].slice(1):x[2],wide=/^init/.test(f),im=`<img class="si${wide?" wide":inl?" sm":""}" loading=lazy src="${img(f)}" alt="">`;return wide||inl?"<li data-n="+(++n)+">"+t+im+"</li>":"<li class=row data-n="+(++n)+"><div class=rw><div>"+t+"</div>"+im+"</div></li>"}).join("")+"</ol>"};
+const pic=f=>{const w=f.startsWith("~~")||/^init/.test(f),s=!w&&f[0]=="~";return `<img class="si${w?" wide":s?" sm":""}" loading=lazy src="${img(f.replace(/^~+/,""))}" alt="">`};
+const il=f=>f[0]=="~"||/^init/.test(f);
+const steps=a=>{let n=0;return "<ol>"+a.map(x=>{
+ if(x[3]){const sts=x[3].map(g=>"<div class=st data-n="+(++n)+">"+g[0]+sub(g[1])+"</div>").join("");
+  return il(x[2])?"<li class=grp>"+sts+pic(x[2])+"</li>":"<li class='row grp'><div class=rw><div>"+sts+"</div>"+pic(x[2])+"</div></li>"}
+ const t=x[0]+sub(x[1]);
+ if(!x[2])return "<li data-n="+(++n)+">"+t+"</li>";
+ const L=[].concat(x[2]);
+ if(L.every(il))return "<li data-n="+(++n)+">"+t+L.map(pic).join("")+"</li>";
+ return "<li class=row data-n="+(++n)+"><div class=rw><div>"+t+"</div>"+pic(L[0])+"</div></li>"}).join("")+"</ol>"};
 const notes=a=>a.flat().map(n=>n[0]=="!"?"<div class='note must'>⚠️ "+n.slice(1)+"</div>":"<div class=note>💡 "+n+"</div>").join("");
 const img=n=>typeof n=="number"?`images/slide-${String(n).padStart(2,"0")}.jpg`:"images/"+n;
 function card(s){const sp=s.im.length&&typeof s.im[0]=="string";return `<article class=card ${gc(s)}><h2><i>${s.ic}</i>${s.t}</h2><div class=g><span class=tag>${s.g}</span>${s.d}</div>${sp?"<div class=split><div>":""}${s.pre?notes(s.pre):""}${steps(s.st)}${notes(s.nt)}${sp?"</div>":""}${s.im.length?`<div class=imgs>${s.im.map(n=>`<img loading=lazy src="${img(n)}" alt="${s.t} 圖示">`).join("")}${sp?"<div class=hint>🔍 點圖可放大</div>":""}</div>`:""}${sp?"</div>":""}</article>`}

@@ -65,3 +65,5 @@ ol>li.grp{counter-increment:none;padding-left:8px}ol>li.grp::before{content:none
 .st{counter-increment:s;position:relative;padding:8px 8px 8px 38px}
 .st::before{content:attr(data-n);position:absolute;left:0;top:9px;width:28px;height:28px;border-radius:50%;background:var(--gc);color:var(--on);text-align:center;line-height:28px;font-size:14px;font-weight:700}
 ol>li.grp.done{opacity:.55}
+ol>li.grp>.si{margin-left:38px;max-width:min(calc(100% - 38px),760px)}
+ol>li.grp>.si.sm{max-width:min(calc(100% - 38px),380px)}
