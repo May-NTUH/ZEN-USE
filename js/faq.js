@@ -1,5 +1,5 @@
 /* 常見問題：要新增或修改，只需編輯此檔。格式：[症狀, 可能原因, 解決方式, 對應章節id] */
-window.ZEN_SECTIONS.push({id:"faq",ic:"❓",g:"常見問題",t:"常見問題與意見回饋",d:"遇到狀況先看這裡，找不到答案可留言",im:[],st:[],nt:[],fb:true,faq:[
+window.ZEN_SECTIONS.push({id:"faq",ic:"❓",g:"問題與回饋",t:"常見問題",d:"遇到狀況先看這裡",im:[],st:[],nt:[],faq:[
 ["轉出的圖，比例尺位置亂跳或大小改變","比例尺沒有勾選「Zoom with Image」，轉出時位置與大小會隨顯示比例改變。","在比例尺上按右鍵 → <b>Format Graphical Elements</b>，勾選 <b>Zoom with Image</b>，再重新轉檔。","q2"],
 ["看不到完整的設定參數","沒有勾選 Show All 時，只會顯示部分參數。","勾選 Parameters 欄位右上角的 <b>Show All</b>。","c1"],
 ["拆出來的檔案名稱沒有位點名稱，只有順序","Method 選錯：選到了 Split Scenes，而不是 Split Scenes (Write files)。","在 Method 選擇 <b>Split Scenes (Write files)</b>，並確認參數中已勾選 <b>Include Scene Information in Generated File Name</b>，再重新拆解。","q5"],
@@ -8,4 +8,5 @@ window.ZEN_SECTIONS.push({id:"faq",ic:"❓",g:"常見問題",t:"常見問題與�
 ["找不到轉檔後的檔案存在哪裡","轉檔前沒有確認輸出位置。","單次影像轉檔請看參數裡的 <b>Export To</b>；批次影像轉檔請檢查 <b>Use Input Folder as Output Folder</b>：勾選＝存回原始資料夾，取消勾選並點 … 可統一指定路徑。","c2"],
 ["只想匯出部分螢光或部分範圍","預設會匯出全部影像。","在參數中選擇 <b>Define subset</b>，再選擇要匯出的 Channels、Region（Image Export 另有 Tiles；Movie Export 另有 Time）。","p1"],
 ["轉出的影片播放太快或太慢","影片速度由 Movie Export 的 Mapping 設定決定。","在 Movie Export 參數的 Mapping 設定播放速度（張數/秒）。","p3"]
-]});
+],post:[["找不到答案？請到 <span class=link data-go='feedback'>意見回饋</span> 留下問題或建議。"]]});
+window.ZEN_SECTIONS.push({id:"feedback",ic:"💬",g:"問題與回饋",t:"意見回饋",d:"留下您的問題或建議",im:[],st:[],nt:[],fb:true});
