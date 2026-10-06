@@ -15,9 +15,17 @@
 </header>
 <div class="wrap"><nav id="nav"></nav><main id="m"></main></div>
 <footer>ZEN影像處理操作指南 · BEAR製作 · 版本日期 2026.10.01<br><span id="cnt"></span></footer>
+<button id="fbBtn" title="意見回饋">💬 意見回饋</button>
+<div id="fb"><div class="fbox"><h3>💬 意見回饋</h3>
+<label>類型<select id="fbType"><option>內容有誤</option><option>看不懂／不清楚</option><option>軟體操作問題</option><option>功能建議</option><option>其他</option></select></label>
+<label>內容<textarea id="fbMsg" maxlength="500" rows="5" placeholder="請描述遇到的問題或建議（請勿填寫個人或實驗機密資料）"></textarea></label>
+<label>聯絡方式（選填）<input id="fbC" maxlength="80" placeholder="Email 或分機，希望回覆時再填"></label>
+<input id="fbHp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
+<div class="fbar"><span id="fbStat"></span><button class="btn" data-close>取消</button><button class="btn pri" id="fbSend">送出</button></div></div></div>
 <div id="lb"><img id="lbi" alt=""></div>
 <script src="js/config.js"></script>
 <script src="js/content.js"></script>
+<script src="js/faq.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>
