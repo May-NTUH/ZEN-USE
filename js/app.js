@@ -30,6 +30,12 @@ function search(v){v=v.trim().toLowerCase();if(!v)return route();menu("");const 
 function route(){const h=location.hash.slice(1);$("#q").value="";h?view(h):home()}
 addEventListener("hashchange",route);
 $("#q").addEventListener("input",e=>search(e.target.value));
+const setNav=o=>{document.body.classList.toggle("navopen",o);$("#menuBtn").setAttribute("aria-expanded",o);
+ if(o){const h=$("header").offsetHeight+"px";nav.style.top=h;document.documentElement.style.setProperty("--hh",h)}};
+$("#menuBtn").onclick=e=>{e.stopPropagation();setNav(!document.body.classList.contains("navopen"))};
+document.addEventListener("click",e=>{if(!e.target.closest("#menuBtn"))setNav(false)});
+addEventListener("resize",()=>{if(innerWidth>=768)setNav(false)});
+addEventListener("keydown",e=>{if(e.key=="Escape")setNav(false)});
 $("#logo").onclick=()=>{location.hash="";route()};
 document.addEventListener("click",e=>{const g=e.target.closest("[data-go]");if(g)location.hash=g.dataset.go;
  const l=e.target.closest("ol>li");if(l&&!e.target.closest(".link")&&!e.target.matches("img"))l.classList.toggle("done");
