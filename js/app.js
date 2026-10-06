@@ -23,9 +23,9 @@ const img=n=>typeof n=="number"?`images/slide-${String(n).padStart(2,"0")}.jpg`:
 function card(s,open){const sp=s.im.length&&typeof s.im[0]=="string";return `<article class=card ${gc(s)}><h2><i>${s.ic}</i>${s.t}</h2><div class=g><span class=tag>${s.g}</span>${s.d}</div>${sp?"<div class=split><div>":""}${s.pre?notes(s.pre):""}${steps(s.st)}${notes(s.nt)}${s.faq?faq(s.faq,open):""}${s.post?notes(s.post):""}${s.fb?fbForm():""}${sp?"</div>":""}${s.im.length?`<div class=imgs>${s.im.map(n=>`<img loading=lazy src="${img(n)}" alt="${s.t} 圖示">`).join("")}${sp?"<div class=hint>🔍 點圖可放大</div>":""}</div>`:""}${sp?"</div>":""}</article>`}
 function menu(cur){let h="",g="";S.forEach(s=>{if(s.g!=g){g=s.g;h+=`<h4 style="--gc:var(${GR[g].c})">${GR[g].i} ${g}</h4>`}h+=`<a href="#${s.id}" ${gc(s)} class="${s.id==cur?"on":""}"><i class=dot></i>${s.t}</a>`});nav.innerHTML=h}
 function home(){menu("");const tk=["q3","q4","q2","q1","q5","c2","faq"].map(id=>S.find(s=>s.id==id));
- m.innerHTML=`<section class=hero><h1>🔬 ZEN 3.4 影像處理與轉檔操作</h1><p>選擇你要做的事，或用上方搜尋框找關鍵字。點步驟可標記完成 ✓</p></section><div class=tasks>${tk.map(s=>`<button class=task ${gc(s)} data-go="${s.id}"><i>${s.ic}</i><b>${s.t}</b><span>${s.d}</span></button>`).join("")}</div>`}
+ m.innerHTML=`<section class=hero><h1>🔬 ZEN 3.4 影像處理與轉檔操作</h1><p>選擇你要做的事，或用上方搜尋框找關鍵字。</p></section><div class=tasks>${tk.map(s=>`<button class=task ${gc(s)} data-go="${s.id}"><i>${s.ic}</i><b>${s.t}</b><span>${s.d}</span></button>`).join("")}</div>`}
 function view(id){const i=S.findIndex(s=>s.id==id);if(i<0)return home();menu(id);if(id!="faq"&&id!="feedback")lastView=id;
- m.innerHTML=card(S[i]);scrollTo(0,0);log("view",id)}
+ m.innerHTML=card(S[i]).replace(" loading=lazy"," fetchpriority=high");scrollTo(0,0);log("view",id)}
 function search(v){v=v.trim().toLowerCase();if(!v)return route();menu("");const r=S.filter(s=>(s.t+s.d+s.g+JSON.stringify(s.st)+JSON.stringify(s.nt)+JSON.stringify(s.faq||[])).toLowerCase().includes(v));logSearch(v,r.length);m.innerHTML=r.length?r.map(s=>card(s,true)).join(""):"<div class=card>找不到符合的內容，請換個關鍵字。</div>"}
 function route(){const h=location.hash.slice(1);$("#q").value="";h?view(h):home()}
 addEventListener("hashchange",route);
@@ -38,8 +38,7 @@ addEventListener("resize",()=>{if(innerWidth>=768)setNav(false)});
 addEventListener("keydown",e=>{if(e.key=="Escape")setNav(false)});
 $("#logo").onclick=()=>{location.hash="";route()};
 document.addEventListener("click",e=>{const g=e.target.closest("[data-go]");if(g)location.hash=g.dataset.go;
- const l=e.target.closest("ol>li");if(l&&!e.target.closest(".link")&&!e.target.matches("img"))l.classList.toggle("done");
- if(e.target.matches(".imgs img,.si")){$("#lbi").src=e.target.src;$("#lb").style.display="flex"}if(e.target.closest("#lb"))$("#lb").style.display="none"});
+  if(e.target.matches(".imgs img,.si")){$("#lbi").src=e.target.src;$("#lb").style.display="flex"}if(e.target.closest("#lb"))$("#lb").style.display="none"});
 
 /* ---- 訪客紀錄 → Google Sheet（Apps Script） ---- */
 let sid;try{sid=sessionStorage.getItem("sid")||Math.random().toString(36).slice(2)+Date.now().toString(36);sessionStorage.setItem("sid",sid)}catch(e){sid=Math.random().toString(36).slice(2)}
@@ -64,5 +63,5 @@ document.addEventListener("click",e=>{if(e.target.id!="fbSend")return;
  $("#fbMsg").value="";$("#fbC").value="";sx.textContent="✅ 已送出，謝謝您的回饋！"});
 async function showCount(){const el=$("#cnt");if(!GAS||!el)return;
  try{const r=await(await fetch(GAS+"?action=count")).json();if(r.ok)el.textContent="👥 累計訪客 "+r.total+" 人次"}catch(e){}}
-route();log("open","");showCount();
+route();log("open","");addEventListener("load",()=>setTimeout(showCount,300));
 })();
