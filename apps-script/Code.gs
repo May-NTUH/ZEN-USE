@@ -1,9 +1,9 @@
 /**
- * TissueFAXS Viewer 操作指南 — 後端（Google Apps Script）
+ * ZEN 操作指南 — 後端（Google Apps Script）
  * 功能：訪客紀錄(visits)、搜尋紀錄(searches)、意見回饋(feedback)，皆寫入同一份試算表。
  * 修改本檔後，必須：部署 → 管理部署 → 鉛筆 → 版本選「新版本」→ 部署（網址不變）。
  */
-const SPREADSHEET_ID = '1kyHi5hXBJeJBEj9PLVHi-a8GHbx2RyhbeRNfpixRLGY'; // TissueFAXS SOP 專用試算表 ID
+const SPREADSHEET_ID = '1r8eSmJwLQzwzbjblSb1m3h5XN-CY8Xa561Zwf1orbw4'; // 你的試算表 ID
 const SHEETS = {
   visits:   { name: 'visits',   head: ['時間', '工作階段ID', '事件', '頁面', '裝置', '語言', '螢幕', '來源'] },
   searches: { name: 'searches', head: ['時間', '工作階段ID', '關鍵字', '結果數', '裝置'] },
@@ -42,7 +42,7 @@ function doPost(e) {
         break;
       case 'feedback':
         if (!String(d.msg || '').trim()) return json_({ ok: false, error: 'empty message' });
-        sheet_('feedback').appendRow([now, clean_(d.sid, 40), clean_(d.t, 20), clean_(d.p, 40),
+        sheet_('feedback').appendRow([now, clean_(d.sid, 40), clean_(d.t, 20), clean_(d.p, 20),
           clean_(d.msg, 500), clean_(d.c, 80), clean_(d.dev, 10)]);
         break;
       default:
