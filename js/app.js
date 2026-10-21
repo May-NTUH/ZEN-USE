@@ -44,9 +44,22 @@ document.addEventListener("click",e=>{const g=e.target.closest("[data-go]");if(g
 let sid;try{sid=sessionStorage.getItem("sid")||Math.random().toString(36).slice(2)+Date.now().toString(36);sessionStorage.setItem("sid",sid)}catch(e){sid=Math.random().toString(36).slice(2)}
 const seen={};
 function post(o){if(!GAS)return;try{fetch(GAS,{method:"POST",mode:"no-cors",keepalive:true,headers:{"Content-Type":"text/plain"},body:JSON.stringify(Object.assign({sid,dev:innerWidth<800?"mobile":"desktop"},o))}).catch(()=>{})}catch(e){}}
+/* 訪客地區：向 ipwho.is 查詢國家/城市（不記 IP），同一次瀏覽只查一次，查不到也不影響網頁 */
+const geoP=(async()=>{
+ let g={tz:""};try{g.tz=Intl.DateTimeFormat().resolvedOptions().timeZone||""}catch(e){}
+ try{const c=sessionStorage.getItem("geo");if(c)return JSON.parse(c)}catch(e){}
+ try{
+  const j=await Promise.race([
+   fetch("https://ipwho.is/?fields=success,country,city,latitude,longitude").then(r=>r.json()),
+   new Promise((_,rej)=>setTimeout(rej,3000))]);
+  if(j&&j.success){
+   g={tz:g.tz,country:j.country||"",city:j.city||"",lat:Math.round(j.latitude*100)/100,lon:Math.round(j.longitude*100)/100};
+   try{sessionStorage.setItem("geo",JSON.stringify(g))}catch(e){}}
+ }catch(e){}
+ return g})();
 function log(ev,p){if(!GAS)return;const k=ev+p;if(seen[k])return;seen[k]=1;
  let ref="direct";try{if(document.referrer)ref=new URL(document.referrer).hostname}catch(e){}
- post({ev,p:p||"",lang:navigator.language,scr:screen.width+"x"+screen.height,ref})}
+ geoP.then(g=>post(Object.assign({ev,p:p||"",lang:navigator.language,scr:screen.width+"x"+screen.height,ref},g)))}
 /* 搜尋紀錄：停止輸入 1.2 秒後才記錄，同一關鍵字每次造訪只記一次 */
 let tm;const seenS={};
 function logSearch(q,n){clearTimeout(tm);tm=setTimeout(()=>{if(!GAS||seenS[q])return;seenS[q]=1;post({ev:"search",q:q.slice(0,60),n})},1200)}
