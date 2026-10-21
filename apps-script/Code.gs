@@ -5,7 +5,7 @@
  */
 const SPREADSHEET_ID = '1r8eSmJwLQzwzbjblSb1m3h5XN-CY8Xa561Zwf1orbw4'; // 你的試算表 ID
 const SHEETS = {
-  visits:   { name: 'visits',   head: ['時間', '工作階段ID', '事件', '頁面', '裝置', '語言', '螢幕', '來源'] },
+  visits:   { name: 'visits',   head: ['時間', '工作階段ID', '事件', '頁面', '裝置', '語言', '螢幕', '來源', '時區', '國家', '城市', '緯度', '經度'] },
   searches: { name: 'searches', head: ['時間', '工作階段ID', '關鍵字', '結果數', '裝置'] },
   feedback: { name: 'feedback', head: ['時間', '工作階段ID', '類型', '頁面', '內容', '聯絡方式', '裝置'] }
 };
@@ -34,7 +34,9 @@ function doPost(e) {
       case 'open':
       case 'view':
         sheet_('visits').appendRow([now, clean_(d.sid, 40), clean_(d.ev, 10), clean_(d.p, 20),
-          clean_(d.dev, 10), clean_(d.lang, 20), clean_(d.scr, 20), clean_(d.ref, 60)]);
+          clean_(d.dev, 10), clean_(d.lang, 20), clean_(d.scr, 20), clean_(d.ref, 60),
+          clean_(d.tz, 40), clean_(d.country, 40), clean_(d.city, 60),
+          Number(d.lat) || '', Number(d.lon) || '']);
         CacheService.getScriptCache().remove('count');
         break;
       case 'search':
