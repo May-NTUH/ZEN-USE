@@ -9,4 +9,6 @@ window.ZEN_SECTIONS.push({id:"faq",ic:"❓",g:"問題與回饋",t:"常見問題"
 ["只想匯出部分螢光或部分範圍","預設會匯出全部影像。","在參數中選擇 <b>Define subset</b>，再選擇要匯出的 Channels、Region（Image Export 另有 Tiles；Movie Export 另有 Time）。","p1"],
 ["轉出的影片播放太快或太慢","影片速度由 Movie Export 的 Mapping 設定決定。","在 Movie Export 參數的 Mapping 設定播放速度（張數/秒）。","p3"]
 ],post:[["找不到答案？請到 <span class=link data-go='feedback'>意見回饋</span> 留下問題或建議。"]]});
+window.ZEN_SECTIONS.push({id:"manual",ic:"📄",g:"問題與回饋",t:"說明書下載",d:"ZEISS ZEN lite PDF 版說明書",im:[],st:[],nt:[],
+ dl:{url:"https://aep.ntuh.gov.tw/public.php?service=files&t=VSdqykH6BlVeIphKIRfhjgLHzzMWjX1sUccZAX9TXRG-Kw3zJiiBQUTi79FyQms-",label:"下載 PDF 說明書",note:"連結會在新分頁開啟，檔案由外部伺服器提供；若無法開啟，請聯絡管理者。"}});
 window.ZEN_SECTIONS.push({id:"feedback",ic:"💬",g:"問題與回饋",t:"意見回饋",d:"留下您的問題或建議",im:[],st:[],nt:[],fb:true});
