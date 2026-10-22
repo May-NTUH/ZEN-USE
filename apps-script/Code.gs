@@ -1,5 +1,5 @@
 /**
- * ZEN 操作指南 — 後端（Google Apps Script）
+ * ZEISS ZEN lite 操作指南 — 後端（Google Apps Script）
  * 功能：訪客紀錄(visits)、搜尋紀錄(searches)、意見回饋(feedback)，皆寫入同一份試算表。
  * 修改本檔後，必須：部署 → 管理部署 → 鉛筆 → 版本選「新版本」→ 部署（網址不變）。
  */
